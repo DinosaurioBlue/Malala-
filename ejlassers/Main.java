@@ -2,6 +2,59 @@ package ejlassers;
 
 import java.util.*;
 
+class LinearFunction {
+    private double m; // Pendiente
+    private double b; // Intersección con el eje y
+
+    // Constructor
+    public LinearFunction(double m, double b) {
+        this.m = m;
+        this.b = b;
+    }
+
+    // Método para calcular f(x) = mx + b
+    public double calculate(double x) {
+        return m * x + b;
+    }
+
+    // Métodos getter y setter si quieres permitir modificar m y b
+    public double getM() {
+        return m;
+    }
+
+    public void setM(double m) {
+        this.m = m;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+}
+
+
+enum letterChanger {
+    U(1),  // Por ejemplo, podrías decidir que U vale 1
+    R(2),  // R vale 2
+    L(3);  // L vale 3
+
+    private final int value;
+
+    // Constructor
+    letterChanger(int value) {
+        this.value = value;
+    }
+
+    // Método para obtener el valor numérico
+    public int getValue() {
+        return value;
+    }
+}
+
+
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
