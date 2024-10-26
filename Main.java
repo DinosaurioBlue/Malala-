@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -39,8 +40,9 @@ class Interval implements Comparable<Interval> {
         this.b = b;
     }
 }
-class Main{
-    public static void main(String[] args) {
+class Main {
+    public static void main(String[] args) throws java.lang.Exception {
+
         Scanner scanner = new Scanner(System.in);
 
         // Paso 1: Leer la entrada
@@ -58,36 +60,58 @@ class Main{
         // Paso 2: Ordenar los intervalos por 'a'
         Collections.sort(intervalos);
 
-        System.out.println("Intervalos ordenados:");
-        for (Interval intervalo : intervalos) {
-            System.out.println(intervalo);
-        }
+
 
         scanner.close();
-
+        //initializing intervalo
         int minA = intervalos.get(0).getA();
         int maxB = intervalos.get(0).getB();
         Interval aux;
         int flag = 0;
+        int i, T1 =0, T2 = 0;
         // Iteramos a través de los intervalos para ajustar el rango del intervalo auxiliar
-        for (int i=0; i < intervalos.size();i++){
-            if(maxB - intervalos.get(i).getA() >= 0){
+        for (i = 0; i < intervalos.size(); i++) {
+            if (maxB - intervalos.get(i).getA() >= 0) {
                 minA = Math.max(minA, intervalos.get(i).getA());
                 maxB = Math.min(maxB, intervalos.get(i).getB());
             }
             else {
-                int T1 = minA;
-                int J = i;
+                T1 = minA;
                 ++flag;
                 break;
 
             }
 
         }
-        if(flag != 0){
-            int T1 = minA, T2 = minA;
+
+        if (flag == 0) {
+            T1 = minA;
+            T2 = minA;
         }
-        else{
+        else {
+            int minC = intervalos.get(i).getA();
+            int maxD = intervalos.get(i).getB();
+            for( ; i < intervalos.size(); ++i){
+                if (maxB - intervalos.get(i).getA() >= 0) {
+                    minC = Math.max(minC, intervalos.get(i).getA());
+                    maxD = Math.min(maxD, intervalos.get(i).getB());
+                }
+                else {
+                    T2 = -300;
+
+                }
+
+
+            }
+
 
         }
+        if(T1 == -300 || T2 == -300){
+            throw new Exception();
+        }
+        else {
+            System.out.printf("%d %d",T1,T2);
+        }
+    }
+}
 
