@@ -1,0 +1,3 @@
+/home/francob/IdeaProjects/Malala-/cmake-build-debug/CMakeFiles/Malala_.dir
+/home/francob/IdeaProjects/Malala-/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/francob/IdeaProjects/Malala-/cmake-build-debug/CMakeFiles/rebuild_cache.dir
