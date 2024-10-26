@@ -30,6 +30,14 @@ class Interval implements Comparable<Interval> {
     public int getB() {
         return b;
     }
+
+    public void setA(int a) {
+        this.a = a;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
 }
 class Main{
     public static void main(String[] args) {
@@ -57,14 +65,29 @@ class Main{
 
         scanner.close();
 
-        //comparar intervalos
-        Interval intervaloParaT1;
-        for (int i=0; i < N ; i++){
+        int minA = intervalos.get(0).getA();
+        int maxB = intervalos.get(0).getB();
+        Interval aux;
+        int flag = 0;
+        // Iteramos a través de los intervalos para ajustar el rango del intervalo auxiliar
+        for (int i=0; i < intervalos.size();i++){
+            if(maxB - intervalos.get(i).getA() >= 0){
+                minA = Math.max(minA, intervalos.get(i).getA());
+                maxB = Math.min(maxB, intervalos.get(i).getB());
+            }
+            else {
+                int T1 = minA;
+                int J = i;
+                ++flag;
+                break;
 
-            intervalos.get(i);
+            }
+
+        }
+        if(flag != 0){
+            int T1 = minA, T2 = minA;
+        }
+        else{
+
         }
 
-
-
-    }
-}
