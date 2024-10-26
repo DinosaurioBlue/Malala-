@@ -8,8 +8,8 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // L = size parking lot
-        int L = scanner.nextInt();
+        // S = size parking lot
+        int S = scanner.nextInt();
 
         // Number of beams sent by A
         int N = scanner.nextInt();
@@ -24,8 +24,13 @@ public class Main {
             int directionValue = changer.getValue();                   // Obtén el valor del enum
 
             // Crear la función lineal con la pendiente basada en steps y directionValue
-            LinearFunction linearFunction = new LinearFunction((double) steps / directionValue, 0);
-            A.add(linearFunction);
+            if(directionValue == 1){
+                LinearFunction linearFunction = new LinearFunction((double) S/steps, 0);
+                A.add(linearFunction);
+            }else {
+                LinearFunction linearFunction = new LinearFunction((double) steps/S, 0);
+                A.add(linearFunction);
+            }
         }
 
 
@@ -36,10 +41,17 @@ public class Main {
             letterChanger changer = letterChanger.valueOf(direction);  // Convierte la dirección a enum
             int directionValue = changer.getValue();                   // Obtén el valor del enum
 
+            if(directionValue == 1){
+                LinearFunction linearFunction = new LinearFunction((double) -S/(S-steps), (double) (S * S) /(S-steps));
+                B.add(linearFunction);
+            }else {
+                LinearFunction linearFunction = new LinearFunction((double) (-steps) /S, steps);
+                B.add(linearFunction);
+            }
             // Crear la función lineal con la pendiente basada en steps y directionValue
-            LinearFunction linearFunction = new LinearFunction((double) steps / directionValue, 0);
-            B.add(linearFunction);
         }
+
+
 
 
 
