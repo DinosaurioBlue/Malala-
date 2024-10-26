@@ -1,4 +1,3 @@
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -13,15 +12,9 @@ class Interval implements Comparable<Interval> {
         this.b = b;
     }
 
-    // Método para comparar intervalos según el valor de 'a'
     @Override
     public int compareTo(Interval other) {
         return Integer.compare(this.a, other.a);
-    }
-
-    @Override
-    public String toString() {
-        return "(" + a + ", " + b + ")";
     }
 
     public int getA() {
@@ -31,23 +24,14 @@ class Interval implements Comparable<Interval> {
     public int getB() {
         return b;
     }
-
-    public void setA(int a) {
-        this.a = a;
-    }
-
-    public void setB(int b) {
-        this.b = b;
-    }
 }
-class Main {
-    public static void main(String[] args) throws java.lang.Exception {
 
+public class Main {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Paso 1: Leer la entrada
+        // Leer la entrada
         int N = scanner.nextInt();
-
         List<Interval> intervalos = new ArrayList<>();
 
         // Leer cada intervalo y almacenarlo en la lista
@@ -57,61 +41,42 @@ class Main {
             intervalos.add(new Interval(a, b));
         }
 
-        // Paso 2: Ordenar los intervalos por 'a'
+        // Ordenar los intervalos por 'a'
         Collections.sort(intervalos);
-
-
-
         scanner.close();
-        //initializing intervalo
+
+        // Inicializar los límites de los fridges
+        int T1 = 0, T2 = 0;
         int minA = intervalos.get(0).getA();
         int maxB = intervalos.get(0).getB();
-        Interval aux;
-        int flag = 0;
-        int i, T1 =0, T2 = 0;
-        // Iteramos a través de los intervalos para ajustar el rango del intervalo auxiliar
-        for (i = 0; i < intervalos.size(); i++) {
-            if (maxB - intervalos.get(i).getA() >= 0) {
-                minA = Math.max(minA, intervalos.get(i).getA());
-                maxB = Math.min(maxB, intervalos.get(i).getB());
-            }
-            else {
-                T1 = minA;
-                ++flag;
-                break;
+        boolean split = false;
+        boolean found = true;
 
-            }
+        // Iterar a través de los intervalos para definir los límites de los fridges
+        for (int i = 1; i < intervalos.size(); i++) {
+            Interval intervalo = intervalos.get(i);
 
+            // Verificar si el intervalo actual se solapa con el rango del primer grupo
+            if (intervalo.getA() <= maxB && found) {
+                // Extender el rango del primer grupo
+                minA = Math.max(minA, intervalo.getA());
+                maxB = Math.min(maxB, intervalo.getB());
+            } else {
+                // No hay solapamiento: fijamos el límite superior del primer grupo y el límite inferior del segundo grupo
+                maxB = Math.max(maxB, intervalo.getA());
+                found = false;
+//                T1 = minA;              // Límite izquierdo del primer grupo
+//                T2 = intervalo.getA();  // Límite izquierdo del segundo grupo
+                split = true;
+//                break;
+            }
         }
 
-        if (flag == 0) {
             T1 = minA;
-            T2 = minA;
-        }
-        else {
-            int minC = intervalos.get(i).getA();
-            int maxD = intervalos.get(i).getB();
-            for( ; i < intervalos.size(); ++i){
-                if (maxB - intervalos.get(i).getA() >= 0) {
-                    minC = Math.max(minC, intervalos.get(i).getA());
-                    maxD = Math.min(maxD, intervalos.get(i).getB());
-                }
-                else {
-                    T2 = -300;
-
-                }
+            T2 = maxB;
 
 
-            }
-
-
-        }
-        if(T1 == -300 || T2 == -300){
-            throw new Exception();
-        }
-        else {
-            System.out.printf("%d %d",T1,T2);
-        }
+        // Imprimir el resultado esperado
+        System.out.printf("%d %d%n", T1, T2);
     }
 }
-
