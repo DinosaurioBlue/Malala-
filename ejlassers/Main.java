@@ -50,9 +50,9 @@ public class Main {
 
 //        IntersectionCounter intersections = new IntersectionCounter(A,S);
 
-        int count = countInternalIntersections(A,S) + N + M;
+        int count = countInternalIntersections(A,S);
 
-        System.out.printf("%d", count );
+        System.out.printf("%d", count + M + N + 1 );
 
         scanner.close();
     }
